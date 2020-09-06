@@ -1,0 +1,1 @@
+slight change has been made in text mining library, as write_csv is opened in r+ mode.
