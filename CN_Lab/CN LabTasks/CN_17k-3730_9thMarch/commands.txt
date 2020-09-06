@@ -1,0 +1,48 @@
+Would you like to enter the initial configuration dialog? [yes/no]: no
+
+
+Press RETURN to get started!
+
+
+
+Router>en
+Router#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#hostname R1
+R1(config)#interface fa0/1
+R1(config-if)#ip address 10.0.0.1 255.0.0.0
+R1(config-if)#no shut
+
+R1(config-if)#
+%LINK-5-CHANGED: Interface FastEthernet0/1, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/1, changed state to up
+
+R1(config-if)#
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/1, changed state to down
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/1, changed state to up
+
+R1(config-if)#ip domain-name Eisha
+R1(config)#username Eisha password eisha
+R1(config)#crypto key generate rsa
+The name for the keys will be: R1.Eisha
+Choose the size of the key modulus in the range of 360 to 2048 for your
+  General Purpose Keys. Choosing a key modulus greater than 512 may take
+  a few minutes.
+
+How many bits in the modulus [512]: 
+% Generating 512 bit RSA keys, keys will be non-exportable...[OK]
+
+R1(config)#
+*Mar 1 0:7:32.950: RSA key size needs to be at least 768 bits for ssh version 2
+*Mar 1 0:7:32.950: %SSH-5-ENABLED: SSH 1.5 has been enabled
+R1(config)#line vty 0 to 10
+                      ^
+% Invalid input detected at '^' marker.
+	
+R1(config)#line vty 0 10
+R1(config-line)#login local
+R1(config-line)#transport input ssh
+R1(config-line)#enable password eisha
+R1(config)#

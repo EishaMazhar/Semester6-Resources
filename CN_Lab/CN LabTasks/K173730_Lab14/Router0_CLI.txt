@@ -1,0 +1,56 @@
+
+Router>
+Router>enable
+Router#config t
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#int fa0/0
+Router(config-if)#ip address 192.168.1.1 255.255.255.0
+Router(config-if)#no shutdown
+
+Router(config-if)#
+%LINK-5-CHANGED: Interface FastEthernet0/0, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/0, changed state to up
+
+Router(config-if)#
+Router(config-if)#exit
+Router(config)#interface fa0/1
+Router(config-if)#ip address 192.168.2.1 255.255.255.0	
+Router(config-if)#no shutdown
+
+Router(config-if)#
+%LINK-5-CHANGED: Interface FastEthernet0/1, changed state to up
+
+Router(config-if)#
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/1, changed state to up
+
+Router(config-if)#
+Router(config-if)#exit
+Router(config)#router ospf 1
+Router(config-router)#router network 192.1658.1.0 0.0.0.2^Z
+Router#
+%SYS-5-CONFIG_I: Configured from console by console
+
+Router#config t
+Enter configuration commands, one per line.  End with CNTL/Z.
+
+Router(config)#router ospf 1
+Router(config-router)#network 192.168.1.0 0.0.0.255 area 0
+Router(config-router)#network 192.168.2.0 0.0.0.255 area 0
+Router(config-router)#network 192.168.3.0 0.0.0.255 area 0
+Router(config-router)#exit
+Router(config)#
+00:53:39: %OSPF-5-ADJCHG: Process 1, Nbr 192.168.3.1 on FastEthernet0/1 from LOADING to FULL, Loading Done
+
+Router(config)#
+Router(config)#ip route 192.168.3.0 255.255.255.0 192.168.2.2
+Router(config)#
+Router(config)#
+Router(config)#access-list 1 deny 192.168.3.100 0.0.0.0
+Router(config)#
+Router(config)#access-list 1 permit any
+Router(config)#
+Router(config)#access-list 1 permit any
+Router(config)#int fa0/0
+Router(config-if)#ip access-group 1 out
+Router(config-if)#
